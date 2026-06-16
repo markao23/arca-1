@@ -1,0 +1,31 @@
+---
+import Menu from '../components/Navbar.astro';
+// import logoCentral from '../assets/logo.png'
+import { Picture } from "astro:assets";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ARCA</title>
+</head>
+<body class="relative min-h-screen bg-[#050505] text-white overflow-x-hidden selection:bg-indigo-500/30">
+	<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+		<div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-600/20 blur-[120px]"></div>
+    <div class="absolute top-[40%] right-[-10%] w-[400px] h-[600px] rounded-full bg-cyan-600/15 blur-[120px]"></div>
+	</div>
+	<div class="fixed inset-0 z-0 pointer-events-none opacity-[0.04] mix-blend-screen"
+		style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+	<div class="relative z-10 flex flex-col min-h-screen">
+		<Menu />
+		<main class="flex-grow container mx-auto px-4 pt-24 pb-12 w-full max-x-6xl">
+			<slot />
+		</main>
+	</div>
+</body>
+</html>
