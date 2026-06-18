@@ -1,20 +1,13 @@
 @import "tailwindcss";
 @theme {
-  --animate-fade-in: fade-in 0.6s ease-out forwards;
-  @keyframes fade-in {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
+    --color-slate-950: #020617;
+    --color-amber-500: #f59e0b;
+    --color-amber-600: #d97706;
 }
 
-.header-cell-bg{
-  background-color: #3498db;
-  color: white;
-  margin-left: 2px;
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
