@@ -1,0 +1,138 @@
+---
+import "../../styles/global.css";
+const cadastros = [
+    { id: '', nome: "", cidade: "", rua: "", diaCadastro: "" },
+    { id: '', nome: "", cidade: "", rua: "", diaCadastro: "" },
+    // Adicione mais registros conforme necessário
+  ];
+---
+
+<div class="flex flex-col md:flex-row gap-8 p-6 md:p-10 bg-gray-50 min-h-screen">
+
+  <div class="w-full md:w-1/2 bg-white p-6 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+      </svg>
+      Formulário de Cadastro
+    </h2>
+    <form action="/user" method="POST"> {/* Substitua '#' pela URL de destino do seu formulário */}
+      <div class="grid grid-cols-1 gap-y-6">
+        <div>
+          <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+          <input type="text" name="nome" id="nome" required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                 placeholder="Seu nome completo">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+            <div>
+              <label for="cidade" class="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
+              <input type="text" name="cidade" id="cidade" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     placeholder="Sua cidade">
+            </div>
+             <div>
+              <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF</label>
+              <input type="text" name="cpf" id="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     placeholder="000.000.000-00">
+                     <p class="mt-1 text-xs text-gray-500">Formato: 000.000.000-00</p>
+            </div>
+        </div>
+
+        <div>
+          <label for="rua" class="block text-sm font-medium text-gray-700 mb-1">Rua e Número</label>
+          <input type="text" name="rua" id="rua" required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                 placeholder="Ex: Rua Exemplo, 123">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+             <div>
+                <label for="telefone" class="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
+                <input type="tel" name="telefone" id="telefone" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="(XX) XXXXX-XXXX">
+            </div>
+            <div>
+              <label for="diaCadastro" class="block text-sm font-medium text-gray-700 mb-1">Data de Cadastro</label>
+              <input type="date" name="diaCadastro" id="diaCadastro" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+        </div>
+
+        <div>
+          <button type="submit"
+                  class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+            Cadastrar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="w-full md:w-1/2 bg-white p-6 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      Registros
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              ID
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Nome
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Cidade
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Rua
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Dia Cadastro
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          {cadastros.map((cadastro) => (
+            <tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {cadastro.id}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                {cadastro.nome}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                {cadastro.cidade}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                {cadastro.rua}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {/* Formatar data se necessário */}
+                {new Date(cadastro.diaCadastro + 'T00:00:00').toLocaleDateString('pt-BR')}
+              </td>
+            </tr>
+          ))}
+
+          {/* Linha para caso não haja cadastros */}
+          {cadastros.length === 0 && (
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
+                Nenhum registro encontrado.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
