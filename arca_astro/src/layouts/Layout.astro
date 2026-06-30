@@ -27,5 +27,42 @@ import { Picture } from "astro:assets";
 			<slot />
 		</main>
 	</div>
+	<script>
+		interface Props {
+			type: string;
+			message: string;
+			url: string;
+			line: number | string;
+		}
+
+		function dispararLog(dadosErro: Props) {
+			fetch('/api/log', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(dadosErro)
+			}).catch((e => console.error('ERRO: nao foi possivel enviar o log', e)));
+		}
+
+		window.addEventListener('error', (event) => {
+			dispararLog({
+				type: 'JS_ERROR',
+				message: event.message,
+				url: event.filename,
+				line: event.lineno
+			});
+		});
+
+		window.addEventListener('unhandledrejection', (event) => {
+			dispararLog({
+				type: 'PROMISE_REJECTION',
+      			message: event.reason?.message || 'Rejeição desconhecida',
+      			url: window.location.href,
+      			line: 'N/A'
+			});
+		});
+
+	</script>
 </body>
 </html>

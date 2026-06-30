@@ -7,7 +7,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev --remote",
+    "dev": "astro dev --remote --port 4322",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -15,7 +15,11 @@
   "dependencies": {
     "@astrojs/db": "^0.21.3",
     "@astrojs/node": "^10.1.4",
-    "astro": "^6.4.5"
+    "@libsql/client": "^0.17.4",
+    "astro": "^6.4.5",
+    "bcrypt": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0"
   }
 }
-
