@@ -16,6 +16,7 @@
     "@astrojs/db": "^0.21.3",
     "@astrojs/node": "^10.1.4",
     "@libsql/client": "^0.17.4",
+    "@tailwindcss/vite": "^4.3.2",
     "astro": "^6.4.5",
     "bcrypt": "^6.0.0"
   },

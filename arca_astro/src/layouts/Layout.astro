@@ -13,6 +13,39 @@ import { Picture } from "astro:assets";
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ARCA</title>
+	<script is:inline>
+		function enviarErroLog(logData) {
+			fetch('http://localhost:4322/api/log', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(logData),
+				keepalive: true,
+			}).catch(err => {
+				console.error('Falha ao enviar o log pra api', err);
+			})
+		}
+	
+		window.onerror = function (message, source, lineno, colno, error) {
+			enviarErroLog({
+				type: 'Runtime Error',
+				message: message.toString(),
+				url: source,
+				line: `${lineno}:${colno}`,
+			});
+			return false;
+		}
+
+		window.addEventListener('unhandledrejection', function (event) {
+			enviarErroLog({
+				type: 'Unhandled Promise Rejection',
+                message: event.reason ? event.reason.toString() : 'Rejeição desconhecida',
+                url: window.location.href,
+                line: 'N/A'
+			});
+		});
+	</script>
 </head>
 <body class="relative min-h-screen bg-[#050505] text-white overflow-x-hidden selection:bg-indigo-500/30">
 	<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
@@ -27,42 +60,5 @@ import { Picture } from "astro:assets";
 			<slot />
 		</main>
 	</div>
-	<script>
-		interface Props {
-			type: string;
-			message: string;
-			url: string;
-			line: number | string;
-		}
-
-		function dispararLog(dadosErro: Props) {
-			fetch('/api/log', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(dadosErro)
-			}).catch((e => console.error('ERRO: nao foi possivel enviar o log', e)));
-		}
-
-		window.addEventListener('error', (event) => {
-			dispararLog({
-				type: 'JS_ERROR',
-				message: event.message,
-				url: event.filename,
-				line: event.lineno
-			});
-		});
-
-		window.addEventListener('unhandledrejection', (event) => {
-			dispararLog({
-				type: 'PROMISE_REJECTION',
-      			message: event.reason?.message || 'Rejeição desconhecida',
-      			url: window.location.href,
-      			line: 'N/A'
-			});
-		});
-
-	</script>
 </body>
 </html>
