@@ -24,10 +24,14 @@ jobs:
           version: 9
 
       - name: 4. Instalando as dependências do projeto
-        run: pnpm install
+        run: |
+          cd arca_astro
+          pnpm install
 
       - name: 5. Gerando o Build do Astro (Cria a pasta dist)
-        run: pnpm build
+        run: |
+          cd arca_astro
+          pnpm build
 
       - name: 6. Configurando o Java (Obrigatório para o Android SDK)
         uses: actions/setup-java@v4
