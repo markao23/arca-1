@@ -1,0 +1,6 @@
+{
+  "appId": "com.markus.app",
+  "appName": "arca_astro",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
