@@ -1,2 +1,2 @@
-allowBuilds:
-  esbuild: true
+packages:
+  - 'arca_astro'

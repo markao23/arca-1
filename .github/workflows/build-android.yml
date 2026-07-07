@@ -1,0 +1,55 @@
+name: Build Android APK (Astro + Capacitor)
+
+on:
+  push:
+    branches: [ main, master, chore/migrate-to-pnpm ] # Roda automaticamente quando você der push nessas branches
+  workflow_dispatch: # Permite que você clique em um botão no GitHub para rodar manualmente quando quiser
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Baixando o código do repositório
+        uses: actions/checkout@v4
+
+      - name: 2. Configurando o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 3. Instalando o pnpm na nuvem
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 4. Instalando as dependências do projeto
+        run: |
+          cd arca_astro
+          pnpm install
+
+      - name: 5. Gerando o Build do Astro (Cria a pasta dist)
+        run: |
+          cd arca_astro
+          pnpm build
+
+      - name: 6. Configurando o Java (Obrigatório para o Android SDK)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17' # Versão ideal e estável para o Capacitor moderno
+
+      - name: 7. Sincronizando o Capacitor (Copia a pasta dist para o Android)
+        run: pnpm exec cap sync
+
+      - name: 8. Compilando o APK (Trabalho pesado que travaria seu PC)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: 9. Disponibilizando o APK para Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: meu-app-android-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
