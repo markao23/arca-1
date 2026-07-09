@@ -44,6 +44,9 @@ jobs:
           cd arca_astro
           pnpm exec cap sync
 
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
+        
       - name: 8. Compilando o APK (Trabalho pesado que travaria seu PC)
         run: |
           cd android
