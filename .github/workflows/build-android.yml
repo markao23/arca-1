@@ -44,12 +44,9 @@ jobs:
           cd arca_astro
           pnpm exec cap sync
 
-      - name: Baixar o código do repositório
-        uses: actions/checkout@v4
-        
       - name: 8. Compilando o APK (Trabalho pesado que travaria seu PC)
         run: |
-          cd android
+          cd arca_astro/android
           chmod +x gradlew
           ./gradlew assembleDebug
 
@@ -57,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: meu-app-android-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: arca_astro/android/app/build/outputs/apk/debug/app-debug.apk
