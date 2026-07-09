@@ -40,7 +40,9 @@ jobs:
           java-version: '17' # Versão ideal e estável para o Capacitor moderno
 
       - name: 7. Sincronizando o Capacitor (Copia a pasta dist para o Android)
-        run: pnpm exec cap sync
+        run: |
+          cd arca_astro
+          pnpm exec cap sync
 
       - name: 8. Compilando o APK (Trabalho pesado que travaria seu PC)
         run: |
