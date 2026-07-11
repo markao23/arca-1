@@ -7,21 +7,13 @@ const pathname = Astro.url.pathname;
 const currentPath = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
 
 const menuItems = [
-  { text: "Perfil", href: "/perfil" },
-  { text: "Calendário", href: "/calendario" },
-  { text: "Pagamento", href: "/pagamento" },
-  { text: "Cadastrar", href: "/cadastrar" },
+  { text: "Perfil", href: "/perfil/index.html" },
+  { text: "Calendário", href: "/calendario/index.html" },
+  { text: "Pagamento", href: "/pagamento/index.html" },
+  { text: "Cadastrar", href: "/cadastrar/index.html" }
 ];
 
-const getMobileHref = (path: string) => {
-  if (path === '/') return '/index.html';
-  return path.endsWith('.html') ? path : `${path.replace(/\/$/, "")}/index.html`;
-};
 
-const isActive = (itemHref: string) => {
-  const mobileHref = getMobileHref(itemHref);
-  return currentPath === itemHref || currentPath === mobileHref || currentPath === `${itemHref}/`;
-};
 ---
 
 <div class="fixed top-3 inset-x-0 flex justify-center z-50 pointer-events-none px-2 md:px-4">
@@ -43,11 +35,12 @@ const isActive = (itemHref: string) => {
       <ul class="flex items-center gap-1">
         {menuItems.map((item) => (
           <li>
-            <a href={getMobileHref(item.href)} class:list={[
+            <a href={item.href} class:list={[
               "relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 inline-block hover:text-white hover:bg-white/[0.06]",
               {
-                "text-white bg-white/[0.08] shadow-sm border border-white/[0.05]": isActive(item.href),
-                "text-gray-400 border border-transparent": !isActive(item.href)
+                "text-white bg-white/[0.08] shadow-sm border border-white/[0.05]": currentPath === item.href,
+                "text-gray-400 border border-transparent": currentPath !== item.href
+
               }
             ]}>
               {item.text}

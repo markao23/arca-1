@@ -8,6 +8,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
+  build: {
+    format: 'file',
+  },
   output: 'static',
   outDir: 'dist'
 });
