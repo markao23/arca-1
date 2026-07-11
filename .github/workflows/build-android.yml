@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: 1. Baixando o código do repositório
@@ -16,7 +16,7 @@ jobs:
       - name: 2. Configurando o Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: 3. Instalando o pnpm na nuvem
         uses: pnpm/action-setup@v4
@@ -37,14 +37,16 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17' # Versão ideal e estável para o Capacitor moderno
+          java-version: '21' # Versão ideal e estável para o Capacitor moderno
 
       - name: 7. Sincronizando o Capacitor (Copia a pasta dist para o Android)
-        run: pnpm exec cap sync
+        run: |
+          cd arca_astro
+          pnpm exec cap sync
 
       - name: 8. Compilando o APK (Trabalho pesado que travaria seu PC)
         run: |
-          cd android
+          cd arca_astro/android
           chmod +x gradlew
           ./gradlew assembleDebug
 
@@ -52,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: meu-app-android-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: arca_astro/android/app/build/outputs/apk/debug/app-debug.apk
