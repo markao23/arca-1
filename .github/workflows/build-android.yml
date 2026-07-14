@@ -5,6 +5,9 @@ on:
     branches: [ main, master, chore/migrate-to-pnpm ] # Roda automaticamente quando você der push nessas branches
   workflow_dispatch: # Permite que você clique em um botão no GitHub para rodar manualmente quando quiser
 
+  permissions:
+    contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -55,3 +58,13 @@ jobs:
         with:
           name: meu-app-android-apk
           path: arca_astro/android/app/build/outputs/apk/debug/app-debug.apk
+      
+      - name: 10. Criar/Atualizar Release Oficial (Deploy continuo)
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true # Crucial: Se a release já existir, ele sobrescreve em vez de dar erro.
+          tag: "latest-build"
+          name: "Build Automático (Desenvolvimento)"
+          body: "Este é o último build gerado automaticamente. O arquivo APK está anexado abaixo."
+          artifacts: "arca_astro/android/app/build/outputs/apk/debug/app-debug.apk"
+          token: ${{ secrets.GITHUB_TOKEN }} # Usa a senha do próprio robô, você não precisa configurar nada.
