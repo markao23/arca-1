@@ -53,3 +53,5 @@ gradlew.bat
 
 ### Kotlin ###
 .kotlin
+
+/src/main/resources/google-services.json
